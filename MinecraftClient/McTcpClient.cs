@@ -140,6 +140,7 @@ namespace MinecraftClient
                 if (Settings.ScriptScheduler_Enabled) { BotLoad(new ChatBots.ScriptScheduler(Settings.ExpandVars(Settings.ScriptScheduler_TasksFile))); }
                 if (Settings.RemoteCtrl_Enabled) { BotLoad(new ChatBots.RemoteControl()); }
                 if (Settings.AutoRespond_Enabled) { BotLoad(new ChatBots.AutoRespond(Settings.AutoRespond_Matches)); }
+                if (Settings.Quiz_Enabled) { BotLoad(new ChatBots.Quiz()); }  //TODO inserted
             }
 
             try

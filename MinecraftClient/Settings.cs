@@ -57,9 +57,13 @@ namespace MinecraftClient
         public static bool DisplaySystemMessages = true;
         public static bool DisplayXPBarMessages = true;
         public static bool TerrainAndMovements = false;
-        public static string PrivateMsgsCmdName = "tell";
+        public static string PrivateMsgsCmdName = "msg";
         public static CacheType SessionCaching = CacheType.None;
         public static bool DebugMessages = false;
+
+        //TODO Quiz inserted
+        public static bool Quiz_Enabled = false;
+
 
         //AntiAFK Settings
         public static bool AntiAFK_Enabled = false;
@@ -119,7 +123,7 @@ namespace MinecraftClient
         private static readonly Dictionary<string, KeyValuePair<string, string>> Accounts = new Dictionary<string, KeyValuePair<string, string>>();
         private static readonly Dictionary<string, KeyValuePair<string, ushort>> Servers = new Dictionary<string, KeyValuePair<string, ushort>>();
 
-        private enum ParseMode { Default, Main, AppVars, Proxy, AntiAFK, Hangman, Alerts, ChatLog, AutoRelog, ScriptScheduler, RemoteControl, ChatFormat, AutoRespond };
+        private enum ParseMode { Default, Main, AppVars, Proxy, AntiAFK, Hangman, Alerts, ChatLog, AutoRelog, ScriptScheduler, RemoteControl, ChatFormat, AutoRespond,Quiz };
 
         /// <summary>
         /// Load settings from the give INI file
@@ -155,6 +159,7 @@ namespace MinecraftClient
                                     case "appvars": pMode = ParseMode.AppVars; break;
                                     case "autorespond": pMode = ParseMode.AutoRespond; break;
                                     case "chatformat": pMode = ParseMode.ChatFormat; break;
+                                    case "quiz": pMode = ParseMode.Quiz; break; //TODO Inserted
                                     default: pMode = ParseMode.Default; break;
                                 }
                             }
@@ -261,6 +266,13 @@ namespace MinecraftClient
                                             }
                                             break;
 
+                                        case ParseMode.Quiz: //TODO inserted
+                                            switch (argName.ToLower())
+                                            {
+                                                case "enabled": Quiz_Enabled = str2bool(argValue);
+                                                    break;
+                                            }
+                                            break;
                                         case ParseMode.Alerts:
                                             switch (argName.ToLower())
                                             {
@@ -495,7 +507,10 @@ namespace MinecraftClient
                 + "\r\n"
                 + "[AutoRespond]\r\n"
                 + "enabled=false\r\n"
-                + "matchesfile=matches.ini\r\n", Encoding.UTF8);
+                + "matchesfile=matches.ini\r\n"
+                + "\r\n"
+                + "[Quiz]\r\n"   //TODO inserted
+                + "enabled=false\r\n", Encoding.UTF8);
         }
 
         /// <summary>
